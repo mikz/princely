@@ -21,7 +21,7 @@ module PdfHelper
   def make_pdf(options = {})
     prince = Princely.new()
     # Sets style sheets on PDF renderer
-    prince.add_style_sheets(*options[:stylesheets].collect{|style| stylesheet_file_path(style)})
+    prince.add_style_sheets(*options.fetch(:stylesheets, []).collect{|style| stylesheet_file_path(style)})
     
     html_string = render_to_string(options)
     
