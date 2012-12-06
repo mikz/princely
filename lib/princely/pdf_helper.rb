@@ -32,6 +32,9 @@ module PdfHelper
     # Remove asset ids on images with a regex
     html_string.gsub!( /src=["'](\S+\?\d*)["']/i ) { |m| 'src="' + $1.split('?').first + '"' }
     
+    # Remove ?body=1 to enable loading from fs
+    html_string.gsub!( /(href=.+?)\?body=1?/) { |m| $1 }
+    
     # Send the generated PDF file from our html string.
     if filename = options[:filename] || options[:file]
       prince.pdf_from_string_to_file(html_string, filename)
